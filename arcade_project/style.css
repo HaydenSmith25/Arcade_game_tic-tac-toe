@@ -1,4 +1,58 @@
 body{
+    font-family: 'Times New Roman', Times, serif;
+    background: linear-gradient(
+        to right,  lightcoral,
+        rgb(199, 80, 80)
+    );
+
+}
+section{
+    text-align: center;
+}
+.title{
+    font-size: 75px;
+    color: pink;
+    margin: 15px auto;
+    border-bottom: 2px solid black;
+}
+.container{
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    width: 476px;
+    margin: 15px auto;
+    background-color:rgb(22, 185, 22);
+    color: yellow;
     
+
+}
+.cell {
+    font-family:'Times New Roman', Times, cursive;
+    width: 150px;
+    height: 150px;
+    box-shadow: 5px 5px 5px 5px black;
+    border: 2.5px solid black;
+    cursor: pointer;
+    line-height: 150px;
+    font-size: 50px;
+    
+}
+.status{
+    display: flex;
+    justify-content: center;
+    padding-top: 20px;
+    font-size: 30px;
+    color: rgb(16, 75, 16);
+ 
+
+
+}
+.restart{
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 15px;
+    background-color: rgb(22, 185, 22);
+    box-shadow: 2px 2px 2px 2px black;
+    height: 50px;
+    width: 150px;
+    margin-top: 50px;
 
 }
