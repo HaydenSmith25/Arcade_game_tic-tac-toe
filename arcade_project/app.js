@@ -11,8 +11,8 @@ const statusDisplay = document.querySelector('.status');
 
 let gameStart = true;
 let currentPlayer = "X";
-let player1 = "";
-let player2 = "";
+let player1;
+let player2;
 let gameState = ["", "", "", "", "", "", "", "", ""];
 
 const winMessage = () => `Player: ${currentPlayer} has won! Congratulations! Press the button (Restart Game) to play again.`;
@@ -24,7 +24,7 @@ statusDisplay.innerHTML = playerTurn();
 const winningState = [
     [0,1,2],
     [3,4,5],
-    [6,7,8]
+    [6,7,8],
     [0,3,6],
     [1,4,7],
     [2,5,8],
@@ -32,8 +32,8 @@ const winningState = [
     [2,4,6]
 ];
 
-function playedCell(cellClicked, cellClikcedIdx){
-    gameState[cellClikcedIdx] = currentPlayer;
+function playedCell(cellClicked, cellClickedIdx){
+    gameState[cellClickedIdx] = currentPlayer;
     cellClicked.innerHTML = currentPlayer;
 }
 
@@ -42,22 +42,26 @@ function playerChange(){
     statusDisplay.innerHTML = playerTurn();
 }
 
+
 function winHandler(){
     let gameWon = false;
-    for(let i = 0; i <= 7; i++){
+    for(let i = 0; i <= 8; i++){
         const winState = winningState[i];
         let win0 = gameState[winState[0]];
         let win1 = gameState[winState[1]];
         let win2 = gameState[winState[2]];
-        if(win0 === "" || win1 === "" || win2 ===""){
+
+        if(win0 === "" || win1 === "" || win2 === ""){
             continue;
-        }if(win0 === win1 && win1 === win2 ){
+        }
+        
+        if(win0 === win1 && win1 === win2 ){
             gameWon = true;
             break;
         }
         
     }
-    if(roundWon){
+    if(gameWon){
         statusDisplay.innerHTML = winMessage();
         gameStart = false;
         return;
@@ -71,4 +75,28 @@ function winHandler(){
     playerChange();
 }
 
+function clickedCell(cellClickedEvent){
+    const cellClicked = cellClickedEvent.target;
+    const cellClickedIdx = parseInt(cellClicked.getAttribute('data-cell-index'));
+
+    if(gameState[cellClickedIdx] !== "" || !gameStart){
+        return;
+    }
+
+    playedCell(cellClicked, cellClickedIdx);
+    winHandler();
+
+}
+
+function gameRestart(){
+    gameStart = false;
+    currentPlayer = "X"
+    gameState = ["", "", "", "", "", "", "", "", ""];
+    statusDisplay.innerHTML = playerTurn();
+    document.querySelectorAll('.cell').forEach(cell => cell.innerHTML = "");
+
+}
+
+document.querySelectorAll('.cell').forEach(cell => cell.addEventListener('click', clickedCell));
+document.querySelector('.restart').addEventListener('click', gameRestart);
 
