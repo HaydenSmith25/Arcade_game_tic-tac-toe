@@ -43,9 +43,11 @@ function playerChange(){
 }
 
 
+
 function winHandler(){
+    
     let gameWon = false;
-    for(let i = 0; i <= 8; i++){
+    for(let i = 0; i <= 7; i++){
         const winState = winningState[i];
         let win0 = gameState[winState[0]];
         let win1 = gameState[winState[1]];
@@ -61,6 +63,7 @@ function winHandler(){
         }
         
     }
+    
     if(gameWon){
         statusDisplay.innerHTML = winMessage();
         gameStart = false;
@@ -73,7 +76,11 @@ function winHandler(){
         return;
     }
     playerChange();
+    
+    
+    
 }
+
 
 function clickedCell(cellClickedEvent){
     const cellClicked = cellClickedEvent.target;
@@ -82,14 +89,14 @@ function clickedCell(cellClickedEvent){
     if(gameState[cellClickedIdx] !== "" || !gameStart){
         return;
     }
-
+    
     playedCell(cellClicked, cellClickedIdx);
     winHandler();
 
 }
 
 function gameRestart(){
-    gameStart = false;
+    gameStart = true;
     currentPlayer = "X"
     gameState = ["", "", "", "", "", "", "", "", ""];
     statusDisplay.innerHTML = playerTurn();
